@@ -182,6 +182,7 @@ void ActionSprite::jumpCutoff()
 {
 	if (_actionState == kActionStateJumpRise)
 	{
+		//这允许玩家通过释放跳跃按钮来中断跳跃，使精灵下降更快
 		if (_jumpVelocity > kJumpCutoff)
 		{
 			_jumpVelocity = kJumpCutoff;
@@ -227,7 +228,7 @@ void ActionSprite::update(float dt)
 		_desiredPosition = ccpAdd(_groundPosition, ccpMult(_velocity, dt));
 		_jumpVelocity -= kGravity * dt;
 		_jumpHeight += _jumpVelocity * dt;
-
+		
 		if (_jumpVelocity <= kJumpForce/2)
 		{
 			this->jumpFall();

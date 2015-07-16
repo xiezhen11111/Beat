@@ -1,18 +1,18 @@
-﻿生成启动时间为 2015/7/15 18:01:12。
-     1>项目“D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\PompaDroid.vcxproj”在节点 4 上(Build 个目标)。
+﻿生成启动时间为 2015/7/16 15:52:18。
+     1>项目“D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\PompaDroid.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx\include" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx\kazmath\include" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx\platform\win32" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx\platform\third_party\win32" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx\platform\third_party\win32\OGLES" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\external" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\external\chipmunk\include\chipmunk" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\CocosDenshion\include" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\extensions" /I..\Classes /I.. /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USE_MATH_DEFINES /D GL_GLEXT_PROTOTYPES /D CC_ENABLE_CHIPMUNK_INTEGRATION=1 /D COCOS2D_DEBUG=1 /D _CRT_SECURE_NO_WARNINGS /D _SCL_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug.win32\\" /Fd"Debug.win32\vc110.pdb" /Gd /TP /wd4267 /wd4251 /wd4244 /analyze- /errorReport:prompt ..\Classes\ActionButton.cpp ..\Classes\ActionDPad.cpp ..\Classes\ActionSprite.cpp ..\Classes\AnimateGroup.cpp ..\Classes\AnimationMember.cpp ..\Classes\AppDelegate.cpp ..\Classes\ArtificialIntelligence.cpp ..\Classes\Boss.cpp ..\Classes\DamageNumber.cpp ..\Classes\GameLayer.cpp ..\Classes\GameScene.cpp ..\Classes\Gauntlets.cpp ..\Classes\Hero.cpp ..\Classes\HitEffect.cpp ..\Classes\HudLayer.cpp ..\Classes\MapObject.cpp ..\Classes\Robot.cpp ..\Classes\TitleLayer.cpp ..\Classes\TitleScene.cpp ..\Classes\Tools.cpp ..\Classes\TrashCan.cpp ..\Classes\Weapon.cpp ..\Classes\WeightedDecision.cpp main.cpp
-         main.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx\include" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx\kazmath\include" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx\platform\win32" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx\platform\third_party\win32" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx\platform\third_party\win32\OGLES" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\external" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\external\chipmunk\include\chipmunk" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\CocosDenshion\include" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\extensions" /I..\Classes /I.. /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USE_MATH_DEFINES /D GL_GLEXT_PROTOTYPES /D CC_ENABLE_CHIPMUNK_INTEGRATION=1 /D COCOS2D_DEBUG=1 /D _CRT_SECURE_NO_WARNINGS /D _SCL_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug.win32\\" /Fd"Debug.win32\vc110.pdb" /Gd /TP /wd4267 /wd4251 /wd4244 /analyze- /errorReport:prompt ..\Classes\ActionSprite.cpp ..\Classes\ArtificialIntelligence.cpp ..\Classes\Boss.cpp ..\Classes\DamageNumber.cpp ..\Classes\GameLayer.cpp ..\Classes\GameScene.cpp ..\Classes\Gauntlets.cpp ..\Classes\Hero.cpp ..\Classes\HudLayer.cpp ..\Classes\MapObject.cpp ..\Classes\Robot.cpp ..\Classes\TitleLayer.cpp ..\Classes\Tools.cpp ..\Classes\TrashCan.cpp ..\Classes\Weapon.cpp ..\Classes\WeightedDecision.cpp
+         ActionSprite.cpp
+         正在生成代码...
+         正在编译...
          WeightedDecision.cpp
          Weapon.cpp
          TrashCan.cpp
          Tools.cpp
-         TitleScene.cpp
          TitleLayer.cpp
          Robot.cpp
          MapObject.cpp
          HudLayer.cpp
-         HitEffect.cpp
          Hero.cpp
          Gauntlets.cpp
          GameScene.cpp
@@ -20,14 +20,6 @@
          DamageNumber.cpp
          Boss.cpp
          ArtificialIntelligence.cpp
-         AppDelegate.cpp
-         AnimationMember.cpp
-         正在生成代码...
-         正在编译...
-         AnimateGroup.cpp
-         ActionSprite.cpp
-         ActionDPad.cpp
-         ActionButton.cpp
          正在生成代码...
        PreLinkEvent:
          if not exist "D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\Debug.win32\" mkdir "D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\Debug.win32\"
@@ -64,7 +56,6 @@
          "D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\Debug.win32\libExtensions.lib"
          "D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\Debug.win32\libBox2D.lib"
          "D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\Debug.win32\libchipmunk.lib"
-     1>ActionButton.obj : warning LNK4075: 忽略“/EDITANDCONTINUE”(由于“/SAFESEH”规范)
          PompaDroid.vcxproj -> D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\Debug.win32\PompaDroid.exe
        Manifest:
          C:\Program Files (x86)\Windows Kits\8.0\bin\x86\mt.exe /nologo /verbose /out:"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\Debug.win32\PompaDroid.exe.manifest" /manifest Debug.win32\PompaDroid.exe.intermediate.manifest
@@ -72,4 +63,4 @@
 
 生成成功。
 
-已用时间 00:00:51.27
+已用时间 00:00:40.27

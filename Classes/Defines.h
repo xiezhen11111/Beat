@@ -42,8 +42,11 @@ static float realRand_0_1()
 	return CCRANDOM_0_1();
 }
 
+//随机数生成器
 
+//在低和高值范围内创建一个随机整数
 #define random_range(low,high) ((rand()%(high-low+1))+low)
+//创建一个随机浮点值
 #define frandom ((float)rand()/UINT64_C(0x100000000))
 #define frandom_range(low, high) (((high - low) * realRand_0_1()) + low)
 #define random_sign (rand() % 2 ? 1 : -1) 
@@ -62,9 +65,9 @@ typedef enum _ActionState
 	kActionStateWalk,
 	kActionStateRun,
 	kActionStateRunAttack,
-	kActionStateJumpRise,
-	kActionStateJumpFall,
-	kActionStateJumpLand,
+	kActionStateJumpRise,//离开了地面，处于上升状态
+	kActionStateJumpFall,//下落过程
+	kActionStateJumpLand,//落到地面
 	kActionStateJumpAttack,
 	kActionStateHurt,
 	kActionStateKnockedOut,

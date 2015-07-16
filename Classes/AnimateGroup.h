@@ -3,6 +3,13 @@
 
 #include "cocos2d.h"
 
+/**
+*
+*控制一组AnimationMembers
+机器人的动画是有三部分组成：base，烟，腰带
+*有很大的可能性他们会不同步,尤其是你正在处理很短的帧间隔
+*
+**/
 class AnimateGroup : public cocos2d::CCAnimate
 {
 public:

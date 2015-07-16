@@ -3,6 +3,8 @@
 
 #include "cocos2d.h"
 
+
+
 class AnimationMember : public cocos2d::CCObject
 {
 public:

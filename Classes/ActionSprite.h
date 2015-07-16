@@ -93,12 +93,12 @@ public:
 	//action methods
 	void idle();
 	void moveWithDirection(cocos2d::CCPoint direction);
-	void runWithDirection(cocos2d::CCPoint direction);
+	void runWithDirection(cocos2d::CCPoint direction);//跑动，当0.2秒内两次按下同一个方向时会触发
 	void walkWithDirection(cocos2d::CCPoint direction);
 	void attack();
 
 	void setPosition(const cocos2d::CCPoint& pos);
-	void setGroundPosition(cocos2d::CCPoint groundPosition);
+	void setGroundPosition(cocos2d::CCPoint groundPosition);//设置阴影的位置
 	void jumpRiseWithDirection(cocos2d::CCPoint direction);
 	void jumpRise();
 	void jumpCutoff();
