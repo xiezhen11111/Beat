@@ -1,0 +1,186 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="win32">
+      <UniqueIdentifier>{84a8ebd7-7cf0-47f6-b75e-d441df67da40}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes">
+      <UniqueIdentifier>{bb6c862e-70e9-49d9-81b7-3829a6f50471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Menus">
+      <UniqueIdentifier>{e65ca866-065a-4bfa-a748-63bb3b8100c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Game">
+      <UniqueIdentifier>{e9ed72b8-c173-4bc8-8041-4b7e6195804b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Characters">
+      <UniqueIdentifier>{e7592115-8d8b-4b0c-be84-91412fbb1d9f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Controls">
+      <UniqueIdentifier>{2fa1a0ec-c046-4b2f-bb8d-4be8b40a787f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\AI">
+      <UniqueIdentifier>{259d068f-5974-4ac4-be0d-be11320eb4c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Effects">
+      <UniqueIdentifier>{791a9b8c-0ddd-4f78-ad2b-728d2441d8f7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\MapObjects">
+      <UniqueIdentifier>{a645caec-af1a-4b79-9cd5-ec9fba2d7d14}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Classes\Tools">
+      <UniqueIdentifier>{51f9ffee-9909-4979-81cd-4f8b9e48e38d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>win32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AppDelegate.cpp">
+      <Filter>Classes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TitleScene.cpp">
+      <Filter>Classes\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TitleLayer.cpp">
+      <Filter>Classes\Menus</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameScene.cpp">
+      <Filter>Classes\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\GameLayer.cpp">
+      <Filter>Classes\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HudLayer.cpp">
+      <Filter>Classes\Game</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ActionSprite.cpp">
+      <Filter>Classes\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Hero.cpp">
+      <Filter>Classes\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ActionDPad.cpp">
+      <Filter>Classes\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ActionButton.cpp">
+      <Filter>Classes\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Robot.cpp">
+      <Filter>Classes\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AnimationMember.cpp">
+      <Filter>Classes\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\AnimateGroup.cpp">
+      <Filter>Classes\Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\WeightedDecision.cpp">
+      <Filter>Classes\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\ArtificialIntelligence.cpp">
+      <Filter>Classes\AI</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\DamageNumber.cpp">
+      <Filter>Classes\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\HitEffect.cpp">
+      <Filter>Classes\Effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Boss.cpp">
+      <Filter>Classes\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Weapon.cpp">
+      <Filter>Classes\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Gauntlets.cpp">
+      <Filter>Classes\Characters</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\MapObject.cpp">
+      <Filter>Classes\MapObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\TrashCan.cpp">
+      <Filter>Classes\MapObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Classes\Tools.cpp">
+      <Filter>Classes\Tools</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="main.h">
+      <Filter>win32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AppDelegate.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TitleScene.h">
+      <Filter>Classes\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TitleLayer.h">
+      <Filter>Classes\Menus</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Defines.h">
+      <Filter>Classes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameScene.h">
+      <Filter>Classes\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\GameLayer.h">
+      <Filter>Classes\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HudLayer.h">
+      <Filter>Classes\Game</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ActionSprite.h">
+      <Filter>Classes\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Hero.h">
+      <Filter>Classes\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ActionDPad.h">
+      <Filter>Classes\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ActionButton.h">
+      <Filter>Classes\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Robot.h">
+      <Filter>Classes\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AnimationMember.h">
+      <Filter>Classes\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\AnimateGroup.h">
+      <Filter>Classes\Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\WeightedDecision.h">
+      <Filter>Classes\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\ArtificialIntelligence.h">
+      <Filter>Classes\AI</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\DamageNumber.h">
+      <Filter>Classes\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\HitEffect.h">
+      <Filter>Classes\Effects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Boss.h">
+      <Filter>Classes\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Weapon.h">
+      <Filter>Classes\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Gauntlets.h">
+      <Filter>Classes\Characters</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\MapObject.h">
+      <Filter>Classes\MapObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\TrashCan.h">
+      <Filter>Classes\MapObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Classes\Tools.h">
+      <Filter>Classes\Tools</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

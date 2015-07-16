@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="100" height="12" tilewidth="32" tileheight="32">
+ <tileset firstgid="1" name="tiles" tilewidth="32" tileheight="32">
+  <image source="tiles.png" width="1024" height="512"/>
+ </tileset>
+ <layer name="Floor" width="100" height="12">
+  <data encoding="base64" compression="zlib">
+   eJzt1VlPwkAUhuGZAIK4ooKKqBgWNwQXxAW3RlwAARWX34/+EV9DJmmamNhMw9W5eHJ6cWbyzWk6dbRSjhBCCCGEEEKMwLdSaqCG9dfXH8/SM5qecd5JHBOYxBSmMYNZJDCHeSwgiRQWEUIYEYxhCctIYwUZrGIN68h6+qOIabsMNmu1h8llqg5ofz/z2cYOdlHCHsqoYB8HOMQRqjhGDSfIIY+CHn5rpzjDOeq4wCWucO3pL2ITW5YZbNa67wmTy30eJ4D9/cznBk200MYTOuiih2e84BV9vOEdH/jELRrY0P+7G03/He7xgEfLDDZrvblMdWcOYj5+/h8/xMFeaw==
+  </data>
+ </layer>
+ <layer name="Wall" width="100" height="12">
+  <data encoding="base64" compression="zlib">
+   eJzt0DWPVkEUBuAP/R+46+JUuLtDhbs7VLjL4lLh7g4VLLK4e738Dp56ipvJ5IYsyZ3kSaZ48+acU1UqlaoK1cafQrVSg5rUojZ1qBv8i8y/y5TRgY40oSnNaE4LWgaZetSnAQ1pROMg04nOdKEr3eie0BMzTyta04a2tKN9Qk9eu8f0ZN1nFKMZQz/6M4CBDGJwkOlBT3rRmz70DTJjGcd4JjCRSQk9MfMMYSjDGM4IRib05LV7TE/WfZayjOXMZBazmcNc5gWZyUxhKtOYzowgs4KVrGI1a1ib0BMzz3wWsJBFLGZJQk9eu8f0ZN1nPwc4yBa2so3t7GBnkFnHejawkU1sDjKHOMwRjnKM4wk9MfPsYjd72Es5+xJ68to9pifrPre4zR3OcZ4LXOQSl4PMCU5yitOc4WyQucs97vOAhzxK6ImZ5wpXucZ1bnAzoSev3WN6su7zmS985QWVvOQVr3kTZB7zhAqe8oznQeYb3/nBT37xO6EnZp63vOM9H/jIp4SevHaP6cm6T/GKV7zi/S/vL3fW3I0=
+  </data>
+ </layer>
+ <layer name="VisualObjects" width="100" height="12" visible="0">
+  <data encoding="base64" compression="zlib">
+   eJzt0sENACAIQ1EYXTfRTXQyHQGRmBj+O/cCrQgAAACQW1GRqnE53Gn7x93wZ2suStb+x755Gu625qK87t8j02Ze9+/xw2YyOd3MAoFUDz0=
+  </data>
+ </layer>
+ <objectgroup name="Objects" width="100" height="12">
+  <object x="303" y="322">
+   <properties>
+    <property name="Type" value="TrashCan"/>
+   </properties>
+  </object>
+  <object x="1517" y="339">
+   <properties>
+    <property name="Type" value="TrashCan"/>
+   </properties>
+  </object>
+  <object x="2829" y="371">
+   <properties>
+    <property name="Type" value="TrashCan"/>
+   </properties>
+  </object>
+  <object x="619" y="310">
+   <properties>
+    <property name="Type" value="TrashCan"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>
