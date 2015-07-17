@@ -75,6 +75,7 @@ bool GameLayer::init()
 	{
 		CC_BREAK_IF(!CCLayer::init());
 
+		//由于人物的素材使用来自了同一个纹理集所以这里使用了CCSpriteBatchNode，这样可以只渲染一次，提高了渲染了效率（注意在3.0beta之后推出了自动批次处理所以不在需要使用CCSpriteBatchNode）
 		CCSpriteFrameCache::sharedSpriteFrameCache()->addSpriteFramesWithFile("Images/sprites.plist");
 		_actors = CCSpriteBatchNode::create("Images/sprites.pvr.ccz");
 
@@ -502,6 +503,11 @@ void GameLayer::updatePositions()
 			//此处判定相当复杂，建议新手多写几个判断语句，大可不必弄的这么晦涩难懂
 			//作者的意思是，posX的位置当然是要取hero的position(_hero->getDesiredPosition().x),但又不能超过最右边界：mapWidth - _hero->feetCollisionRect().size.width/2
 			//同时角色位置最小又不能小于左边界:_hero->feetCollisionRect().size.width/2, 然后就用MIN和MAX加以巧妙的组合实现了一条语句完成多种条件判定的方法
+			/*
+			其实也很简单，角色位置最小不能小于左边界那么就使用MAX并且其中一个参数是左边界，这样无论另一个值是多少，MAX的结果都不会小于左边界
+			同时不能超过最右边界就使用MIN并且其中一个参数是右边界，这样无论另一个值多少，MIN的值都不会大于右边界
+			将二者结合就可以保证posX的值不小于左边界且不大于右边界
+			*/
 			posX = MIN(mapWidth - _hero->feetCollisionRect().size.width/2, 
 				MAX(_hero->feetCollisionRect().size.width/2, _hero->getDesiredPosition().x));
 			posY = MIN(floorHeight + (_hero->getCenterToBottom() - _hero->feetCollisionRect().size.height), 
