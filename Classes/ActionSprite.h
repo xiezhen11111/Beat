@@ -78,7 +78,7 @@ public:
 	CC_SYNTHESIZE(float, _centerToSides, CenterToSides);  //设置角色包围框,角色中心点到两边的距离
 	CC_SYNTHESIZE(float, _centerToBottom, CenterToBottom);//设置角色包围框,角色中心点到上下的距离
 
-	//collisions
+	//collisions 碰撞相关的
 	std::vector<ContactPoint> _contactPoints; //挨打的碰撞检测圆数组
 	std::vector<ContactPoint> _attackPoints;  //攻击的碰撞检测圆   
 	int _contactPointCount;  //碰撞检测圆数目

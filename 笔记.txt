@@ -1,0 +1,1 @@
+hysicsEditor 是一款很好的box2d 形状生成工具，通过图形界面，点点鼠标，生成形状的plist文件，然后使用他的api生成fixtures加到需要的body中去

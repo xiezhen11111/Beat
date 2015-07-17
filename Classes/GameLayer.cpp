@@ -650,6 +650,7 @@ void GameLayer::reorderActors()
 
 int GameLayer::getZFromYPosition(float yPosition)
 {
+	//y坐标值越小，返回的z值越大显示也就越靠前并且保证了z值都是正值
 	return (int)((_tileMap->getMapSize().height * _tileMap->getTileSize().height * kPointFactor) - yPosition);
 }
 
