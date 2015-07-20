@@ -677,11 +677,13 @@ void GameLayer::drawShapesForActionSprite(ActionSprite* sprite)
 	{
 		int i;
 		
+		//ªÊ÷∆’Ï≤Ï‘≤
 		ccDrawColor4B(0, 0, 255, 255);
 		ccDrawCircle(sprite->getPosition(), sprite->_detectionRadius, 0, 16, false, 1.0f, 1.0f);
 
 		ccDrawColor4B(0, 255, 0, 255);
 
+		//ªÊ÷∆Ω”¥•‘≤
 		for (i=0; i<sprite->_contactPointCount; i++)
 		{
 			ccDrawCircle(sprite->_contactPoints[i].position, sprite->_contactPoints[i].radius, 0, 8, false);
@@ -694,6 +696,7 @@ void GameLayer::drawShapesForActionSprite(ActionSprite* sprite)
 			ccDrawCircle(sprite->_attackPoints[i].position, sprite->_attackPoints[i].radius, 0, 8, false);
 		}
 
+		//ªÊ÷∆Ω≈≤øæÿ–ŒøÚ
 		ccDrawColor4B(255, 255, 0, 255);
 		ccDrawRect(sprite->feetCollisionRect().origin,
 			ccp(sprite->feetCollisionRect().origin.x + 

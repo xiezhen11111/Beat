@@ -352,7 +352,7 @@ void ActionSprite::setActionState(ActionState actionState)
 
 void ActionSprite::setContactPointsForAction(ActionState actionState)
 {
-
+	//基于状态重新安排检测圆，由子类实现
 }
 
 void ActionSprite::transformPoints()
