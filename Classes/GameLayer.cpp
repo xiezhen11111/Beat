@@ -921,20 +921,24 @@ bool GameLayer::actionSpriteDidAttack(ActionSprite *actionSprite)
 	return didHit;
 }
 
+//与敌人的碰撞检测
 bool GameLayer::collisionBetweenAttacker(ActionSprite* attacker, ActionSprite* target, cocos2d::CCPoint* position)
 {
 	//first; 检查是否在同一平面上 即角色脚y坐标是否接近
 	float planeDist = attacker->getShadow()->getPositionY() - target->getShadow()->getPositionY();
 
+	
 	if (fabsf(planeDist) <= kPlaneHeight) //判断y坐标相差是否在一个平面允许的误差内
 	{
 		int i,j;
-		//探测边界
+		//探测边界（两个物体的侦测半径之和）
 		float combinedRadius = attacker->_detectionRadius + target->_detectionRadius;
 
-		//initial detection 判断攻击者与被攻击者是否进入了探测范围
+		//initial detection 判断攻击者与被攻击者是否进入了探测范围（不开方效率高）
 		if (ccpDistanceSQ(attacker->getPosition(), target->getPosition()) <= combinedRadius * combinedRadius)
 		{
+			//相交了，进行下一步检测
+
 			int attackPointCount = attacker->_attackPointCount;
 			int contactPointCount = target->_contactPointCount;
 
@@ -960,6 +964,8 @@ bool GameLayer::collisionBetweenAttacker(ActionSprite* attacker, ActionSprite* t
 			}
 		}
 	}
+
+	//为什么要圆形而不使用矩形类检测碰撞，是因为矩形检测比较麻烦要关注很多点（156页），而矩形只需要关注两个物体的坐标
 	return false;
 }
 

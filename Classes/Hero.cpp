@@ -125,7 +125,7 @@ bool Hero::init()
 		CCAnimation* knockedOutAnimation = this->animationWithPrefix("hero_knockout", 0, 5, 1.0f/12.0f);
 		this->setKnockedOutAction(CCAnimate::create(knockedOutAnimation));
 
-		//死亡动画
+		//死亡动画，闪烁几次即可
 		this->setDieAction(CCBlink::create(2.0f, 10.0f));
 
 		//起来动画

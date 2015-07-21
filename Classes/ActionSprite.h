@@ -105,7 +105,7 @@ public:
 	void jumpFall();
 	void jumpLand();
 	void die();
-	void recover();
+	void recover();//玩家被击倒后恢复第一步调用该方法
 	virtual void getUp();
 	void reset();
 	void jumpAttack();
@@ -152,7 +152,7 @@ public:
 	void transformPoints();
 
 	void hurtWithDamage(float damage, float force, cocos2d::CCPoint direction);
-	void knockoutWithDamage(float damage, cocos2d::CCPoint direction);
+	void knockoutWithDamage(float damage, cocos2d::CCPoint direction);//被击倒
 
 
 	void cleanup();
