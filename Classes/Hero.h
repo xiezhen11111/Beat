@@ -16,7 +16,7 @@ public:
 
 	void setContactPointsForAction(ActionState actionState); //根据当前状态设置碰撞点
 	//重载CCSprite的setDisplayFrame函数，它是执行动画里调用的，用来判断攻击帧
-	void setDisplayFrame(cocos2d::CCSpriteFrame *pNewFrame);
+	void setDisplayFrame(cocos2d::CCSpriteFrame *pNewFrame);//由于一套攻击动作可能真正的攻击动作是在某一帧，那么就不需要在其余帧检测（比如一套攻击动作有5帧，真正攻击帧在第4帧，所以应该在播放到第4帧的时候去检测，其余帧并不需要）
 
 	void hurtWithDamage(float damage, float force, cocos2d::CCPoint direction);
 	void knockoutWithDamage(float damage, cocos2d::CCPoint direction);

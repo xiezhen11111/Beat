@@ -538,7 +538,8 @@ void GameLayer::updatePositions()
 		if (robot->_actionState > kActionStateNone)
 		{
 			this->objectCollisionsForSprite(robot); //处理机器人与箱子的碰撞
-
+			//第一，你不限制机器人的x轴坐标。机器人被允许在屏幕以外，这是合乎逻辑的，因为它们出现在地图上
+			//其次，当一个死机器人与英雄的距离大于屏幕的可视区域，然后机器人变得不可见and复位
 			posY = MIN(floorHeight + (robot->getCenterToBottom() -robot->feetCollisionRect().size.height), MAX(robot->getCenterToBottom(), 
 				robot->getDesiredPosition().y));
 			robot->setGroundPosition(ccp(robot->getDesiredPosition().x, posY));
