@@ -31,6 +31,7 @@ protected:
 	ActionSprite *_controlledSprite; //被AI操纵的角色
 	ActionSprite *_targetSprite;     //AI想攻击的对象
 	AIDecision _decision;		    //当前AI作出的决定
+	//保存四个可用的决定的数组，这将使它以后很容易的遍历决策
 	cocos2d::CCArray *_availableDecisions;  //当前可用的决定数组
 private:
 };
