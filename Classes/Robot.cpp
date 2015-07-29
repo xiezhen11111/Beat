@@ -82,6 +82,8 @@ bool Robot::init()
 		  ContactPoint cp;
 		  _attackPoints.push_back(cp);
 	  }
+
+	  //由于ai计算是依靠机器人的攻击圆，但是机器人的攻击圆直到执行攻击时才会设置，所以这里需要设置一个
 	  this->modifyAttackPointAtIndex(0, ccp(45.f, 6.5f), 10.f); //初始化一个攻击判定框
 
 	  this->_maxHitPoints = 100.0f;  //角色最大HP

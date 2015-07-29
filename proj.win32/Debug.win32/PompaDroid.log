@@ -1,8 +1,8 @@
-﻿生成启动时间为 2015/7/21 22:53:40。
+﻿生成启动时间为 2015/7/28 23:35:06。
      1>项目“D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\PompaDroid.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
-         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx\include" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx\kazmath\include" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx\platform\win32" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx\platform\third_party\win32" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx\platform\third_party\win32\OGLES" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\external" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\external\chipmunk\include\chipmunk" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\CocosDenshion\include" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\extensions" /I..\Classes /I.. /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USE_MATH_DEFINES /D GL_GLEXT_PROTOTYPES /D CC_ENABLE_CHIPMUNK_INTEGRATION=1 /D COCOS2D_DEBUG=1 /D _CRT_SECURE_NO_WARNINGS /D _SCL_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug.win32\\" /Fd"Debug.win32\vc110.pdb" /Gd /TP /wd4267 /wd4251 /wd4244 /analyze- /errorReport:prompt ..\Classes\ActionSprite.cpp
-         ActionSprite.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx\include" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx\kazmath\include" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx\platform\win32" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx\platform\third_party\win32" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\cocos2dx\platform\third_party\win32\OGLES" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\external" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\external\chipmunk\include\chipmunk" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\CocosDenshion\include" /I"D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\extensions" /I..\Classes /I.. /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _WINDOWS /D _USE_MATH_DEFINES /D GL_GLEXT_PROTOTYPES /D CC_ENABLE_CHIPMUNK_INTEGRATION=1 /D COCOS2D_DEBUG=1 /D _CRT_SECURE_NO_WARNINGS /D _SCL_SECURE_NO_WARNINGS /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug.win32\\" /Fd"Debug.win32\vc110.pdb" /Gd /TP /wd4267 /wd4251 /wd4244 /analyze- /errorReport:prompt ..\Classes\ArtificialIntelligence.cpp
+         ArtificialIntelligence.cpp
        PreLinkEvent:
          if not exist "D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\Debug.win32\" mkdir "D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\Debug.win32\"
          xcopy /Y /Q "D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\..\..\..\external\libwebsockets\win32\lib\*.*" "D:\cocos2d-x-2.2.6\projects\Beat\proj.win32\Debug.win32\"
@@ -45,4 +45,4 @@
 
 生成成功。
 
-已用时间 00:00:03.87
+已用时间 00:00:03.01
