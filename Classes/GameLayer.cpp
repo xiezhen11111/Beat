@@ -151,12 +151,17 @@ void GameLayer::initRobots()
 		shadow->setScale(shadow->getScale()*kScaleFactor);
 		robot->setShadow(shadow);
 
-		robot->setPosition(OFFSCREEN);
+		robot->setPosition(OFFSCREEN);//当创建后，被设置到深处，看不到，直到被生产
 		robot->_groundPosition = robot->getPosition();
 		robot->setDesiredPosition(robot->getPosition());
-		robot->setVisible(false);
+		robot->setVisible(false);//还需要设置为不可见，这样引擎就不需要去渲染它了
 		robot->setColorSet(kColorRandom);
 		robot->_actionState = kActionStateNone;
+
+		/*
+		设置了所有的机器人远离是因为你不想这50个机器人总是追逐英雄，代替的是当你需要的时候会生产，根据当前的battle event
+		*/
+
 
 		/*
 		//机器人出现的范围，从屏幕中间到场景最右边
@@ -1078,7 +1083,7 @@ void GameLayer::spawnEnemies(cocos2d::CCArray *enemies, float origin)
 	CCARRAY_FOREACH(enemies, obj)
 	{
 		enemyData = (CCDictionary *)obj;
-		//获取行，列，偏移数据
+		//获取行，列，偏移数据，确定敌人的类型与位置
 		row = enemyData->valueForKey("Row")->floatValue();
 		type = enemyData->valueForKey("Type")->intValue();
 		offset = enemyData->valueForKey("Offset")->floatValue();
@@ -1088,7 +1093,7 @@ void GameLayer::spawnEnemies(cocos2d::CCArray *enemies, float origin)
 		{
 			color = enemyData->valueForKey("Color")->intValue();
 
-			//获取一个未用过的robot
+			//获取一个未用过的robot（该数组在initRobots方法中已经进行处理）
 			CCARRAY_FOREACH(_robots, obj)
 			{
 				robot = (Robot *)obj;
@@ -1098,9 +1103,12 @@ void GameLayer::spawnEnemies(cocos2d::CCArray *enemies, float origin)
 					robot->stopAllActions();
 					robot->setVisible(false);
 					//根据机器人的参数计算出位置
-					CCPoint pos = ccp(origin+(offset * 
-						(CENTER.x + robot->getCenterToSides())), robot->getCenterToBottom() +
-						_tileMap->getTileSize().height * row * kPointFactor);
+					CCPoint pos = ccp(
+						//CENTER.x + robot->getCenterToSides()的位置正好是在两边的边界位置，如果offset为1则在最右边，-1则在最左边
+						origin+(offset * (CENTER.x + robot->getCenterToSides())), 
+						//从机器人的脚底向上加上所在行的高度
+						robot->getCenterToBottom() +_tileMap->getTileSize().height * row * kPointFactor
+						);
 					robot->setGroundPosition(pos); 
 					robot->setPosition(robot->_groundPosition);
 					robot->setDesiredPosition(robot->_groundPosition);
@@ -1130,14 +1138,18 @@ void GameLayer::updateEvent()
 {
 	if (_eventState == kEventStateBattle && _activeEnemies <= 0)
 	{
+		//当前敌人消灭
+
+		//设置视野
 		float maxCenterX = _tileMap->getMapSize().width * _tileMap->getTileSize().width * kPointFactor - CENTER.x;
 		float cameraX = MAX(MIN(_hero->getPosition().x, maxCenterX), CENTER.x);
 		_viewPointOffset = cameraX - _eventCenter;
+
 		//如果本关所有的战斗事件都完了，就退出本关
 		if(_battleEvents->count()==0)
 			this->exitLevel();
 		else
-			this->setEventState(kEventStateFreeWalk);
+			this->setEventState(kEventStateFreeWalk);//切换回去
 	}
 	else if (_eventState == kEventStateFreeWalk)
 	{
@@ -1171,10 +1183,12 @@ void GameLayer::cycleEvents()
 	CCObject *obj = NULL; 
 	int column;
 	float tileWidth = _tileMap->getTileSize().width * kPointFactor;
+
+	//遍历未发生事件的集合，获取每个事件列的位置同时计算_eventCenter位置，判断哪个处于屏幕中心
 	CCARRAY_FOREACH(_battleEvents, obj)
 	{
 		event = (CCDictionary *)obj;
-		column = event->valueForKey("Column")->intValue();
+		column = event->valueForKey("Column")->intValue();//玩家走到该列后激活敌人
 		float maxCenterX = _tileMap->getMapSize().width * _tileMap->getTileSize().width * kPointFactor - CENTER.x;
 		float columnPosition = column * tileWidth - tileWidth/2;
 		_eventCenter = MAX(MIN(columnPosition, maxCenterX), CENTER.x);
@@ -1182,16 +1196,17 @@ void GameLayer::cycleEvents()
 		if (_hero->getPosition().x >= _eventCenter)  //玩家走过屏幕半场了，激活敌人
 		{
 			_currentEvent = event;
-			_eventState = kEventStateBattle;
+			_eventState = kEventStateBattle;//设置当前事件状态为战斗
 			//_battleEvents = CCArray::createWithArray((CCArray *)levelData->objectForKey("BattleEvents"));
-			CCArray *enemyData = CCArray::createWithArray((CCArray *)event->objectForKey("Enemies"));
+			CCArray *enemyData = CCArray::createWithArray((CCArray *)event->objectForKey("Enemies"));//获取敌人的数据（包含敌人的类型，位置，颜色）
 			_activeEnemies = enemyData->count();
-			this->spawnEnemies(enemyData, _eventCenter);
-			this->setViewpointCenter(ccp(_eventCenter, _hero->getPositionY()));
+			this->spawnEnemies(enemyData, _eventCenter);//创建敌人
+			this->setViewpointCenter(ccp(_eventCenter, _hero->getPositionY()));//设置视角
 			break;
 		}
 	}
 
+	//从未发生事件集合中移除掉
 	if (_eventState == kEventStateBattle)
 	{
 		_battleEvents->removeObject(_currentEvent);

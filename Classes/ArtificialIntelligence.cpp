@@ -75,6 +75,7 @@ AIDecision ArtificialIntelligence::decideWithAttackWeight(int attackWeight, int 
 	WeightedDecision *weightedDecision;
 	CCObject *obj;
 	//循环迭代，把这些决定按weight值分段，检查最后choice到底落到了哪一个区段内
+	//当然也可以使用一种简单的办法就是使用if-else来判断，但不如这种方法巧妙
 	CCARRAY_FOREACH(_availableDecisions, obj)
 	{
 		weightedDecision = (WeightedDecision *)obj;
