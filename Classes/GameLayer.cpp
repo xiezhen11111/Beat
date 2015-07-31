@@ -151,12 +151,17 @@ void GameLayer::initRobots()
 		shadow->setScale(shadow->getScale()*kScaleFactor);
 		robot->setShadow(shadow);
 
-		robot->setPosition(OFFSCREEN);
+		robot->setPosition(OFFSCREEN);//当创建后，被设置到深处，看不到，直到被生产
 		robot->_groundPosition = robot->getPosition();
 		robot->setDesiredPosition(robot->getPosition());
-		robot->setVisible(false);
+		robot->setVisible(false);//还需要设置为不可见，这样引擎就不需要去渲染它了
 		robot->setColorSet(kColorRandom);
 		robot->_actionState = kActionStateNone;
+
+		/*
+		设置了所有的机器人远离是因为你不想这50个机器人总是追逐英雄，代替的是当你需要的时候会生产，根据当前的battle event
+		*/
+
 
 		/*
 		//机器人出现的范围，从屏幕中间到场景最右边
@@ -470,6 +475,7 @@ void GameLayer::update(float dt)
 
 	this->updateEvent();
 
+	//不断的更改视野偏移，使得视角平滑的移动
 	if (_viewPointOffset < 0)
 	{
 		_viewPointOffset += SCREEN.width * dt;
@@ -538,7 +544,8 @@ void GameLayer::updatePositions()
 		if (robot->_actionState > kActionStateNone)
 		{
 			this->objectCollisionsForSprite(robot); //处理机器人与箱子的碰撞
-
+			//第一，你不限制机器人的x轴坐标。机器人被允许在屏幕以外，这是合乎逻辑的，因为它们出现在地图上
+			//其次，当一个死机器人与英雄的距离大于屏幕的可视区域，然后机器人变得不可见and复位
 			posY = MIN(floorHeight + (robot->getCenterToBottom() -robot->feetCollisionRect().size.height), MAX(robot->getCenterToBottom(), 
 				robot->getDesiredPosition().y));
 			robot->setGroundPosition(ccp(robot->getDesiredPosition().x, posY));
@@ -592,7 +599,7 @@ void GameLayer::setViewpointCenter(cocos2d::CCPoint position)
 
 	CCPoint viewPoint = ccpSub(CENTER, actualPosition);
 	//this->setPosition(viewPoint);
-	this->setPosition(ccp(viewPoint.x + _viewPointOffset, viewPoint.y));
+	this->setPosition(ccp(viewPoint.x + _viewPointOffset, viewPoint.y));//为了平滑的过渡到英雄为中心的视角，而不是突然移动
 }
 
 void GameLayer::reorderActors()
@@ -677,11 +684,13 @@ void GameLayer::drawShapesForActionSprite(ActionSprite* sprite)
 	{
 		int i;
 		
+		//绘制侦察圆
 		ccDrawColor4B(0, 0, 255, 255);
 		ccDrawCircle(sprite->getPosition(), sprite->_detectionRadius, 0, 16, false, 1.0f, 1.0f);
 
 		ccDrawColor4B(0, 255, 0, 255);
 
+		//绘制接触圆
 		for (i=0; i<sprite->_contactPointCount; i++)
 		{
 			ccDrawCircle(sprite->_contactPoints[i].position, sprite->_contactPoints[i].radius, 0, 8, false);
@@ -694,6 +703,7 @@ void GameLayer::drawShapesForActionSprite(ActionSprite* sprite)
 			ccDrawCircle(sprite->_attackPoints[i].position, sprite->_attackPoints[i].radius, 0, 8, false);
 		}
 
+		//绘制脚部矩形框
 		ccDrawColor4B(255, 255, 0, 255);
 		ccDrawRect(sprite->feetCollisionRect().origin,
 			ccp(sprite->feetCollisionRect().origin.x + 
@@ -714,6 +724,7 @@ bool GameLayer::actionSpriteDidDie(ActionSprite *actionSprite)
 	}
 	else
 	{
+		//敌人挂掉了，计数减1
 		_activeEnemies--;
 		return true;
 	}
@@ -918,20 +929,24 @@ bool GameLayer::actionSpriteDidAttack(ActionSprite *actionSprite)
 	return didHit;
 }
 
+//与敌人的碰撞检测
 bool GameLayer::collisionBetweenAttacker(ActionSprite* attacker, ActionSprite* target, cocos2d::CCPoint* position)
 {
 	//first; 检查是否在同一平面上 即角色脚y坐标是否接近
 	float planeDist = attacker->getShadow()->getPositionY() - target->getShadow()->getPositionY();
 
+	
 	if (fabsf(planeDist) <= kPlaneHeight) //判断y坐标相差是否在一个平面允许的误差内
 	{
 		int i,j;
-		//探测边界
+		//探测边界（两个物体的侦测半径之和）
 		float combinedRadius = attacker->_detectionRadius + target->_detectionRadius;
 
-		//initial detection 判断攻击者与被攻击者是否进入了探测范围
+		//initial detection 判断攻击者与被攻击者是否进入了探测范围（不开方效率高）
 		if (ccpDistanceSQ(attacker->getPosition(), target->getPosition()) <= combinedRadius * combinedRadius)
 		{
+			//相交了，进行下一步检测
+
 			int attackPointCount = attacker->_attackPointCount;
 			int contactPointCount = target->_contactPointCount;
 
@@ -957,6 +972,8 @@ bool GameLayer::collisionBetweenAttacker(ActionSprite* attacker, ActionSprite* t
 			}
 		}
 	}
+
+	//为什么要圆形而不使用矩形类检测碰撞，是因为矩形检测比较麻烦要关注很多点（156页），而矩形只需要关注两个物体的坐标
 	return false;
 }
 
@@ -1068,7 +1085,7 @@ void GameLayer::spawnEnemies(cocos2d::CCArray *enemies, float origin)
 	CCARRAY_FOREACH(enemies, obj)
 	{
 		enemyData = (CCDictionary *)obj;
-		//获取行，列，偏移数据
+		//获取行，列，偏移数据，确定敌人的类型与位置
 		row = enemyData->valueForKey("Row")->floatValue();
 		type = enemyData->valueForKey("Type")->intValue();
 		offset = enemyData->valueForKey("Offset")->floatValue();
@@ -1078,7 +1095,7 @@ void GameLayer::spawnEnemies(cocos2d::CCArray *enemies, float origin)
 		{
 			color = enemyData->valueForKey("Color")->intValue();
 
-			//获取一个未用过的robot
+			//获取一个未用过的robot（该数组在initRobots方法中已经进行处理）
 			CCARRAY_FOREACH(_robots, obj)
 			{
 				robot = (Robot *)obj;
@@ -1088,9 +1105,12 @@ void GameLayer::spawnEnemies(cocos2d::CCArray *enemies, float origin)
 					robot->stopAllActions();
 					robot->setVisible(false);
 					//根据机器人的参数计算出位置
-					CCPoint pos = ccp(origin+(offset * 
-						(CENTER.x + robot->getCenterToSides())), robot->getCenterToBottom() +
-						_tileMap->getTileSize().height * row * kPointFactor);
+					CCPoint pos = ccp(
+						//CENTER.x + robot->getCenterToSides()的位置正好是在两边的边界位置，如果offset为1则在最右边，-1则在最左边
+						origin+(offset * (CENTER.x + robot->getCenterToSides())), 
+						//从机器人的脚底向上加上所在行的高度
+						robot->getCenterToBottom() +_tileMap->getTileSize().height * row * kPointFactor
+						);
 					robot->setGroundPosition(pos); 
 					robot->setPosition(robot->_groundPosition);
 					robot->setDesiredPosition(robot->_groundPosition);
@@ -1120,14 +1140,18 @@ void GameLayer::updateEvent()
 {
 	if (_eventState == kEventStateBattle && _activeEnemies <= 0)
 	{
+		//当前敌人消灭
+
+		//设置视野
 		float maxCenterX = _tileMap->getMapSize().width * _tileMap->getTileSize().width * kPointFactor - CENTER.x;
 		float cameraX = MAX(MIN(_hero->getPosition().x, maxCenterX), CENTER.x);
 		_viewPointOffset = cameraX - _eventCenter;
+
 		//如果本关所有的战斗事件都完了，就退出本关
 		if(_battleEvents->count()==0)
 			this->exitLevel();
 		else
-			this->setEventState(kEventStateFreeWalk);
+			this->setEventState(kEventStateFreeWalk);//切换回去
 	}
 	else if (_eventState == kEventStateFreeWalk)
 	{
@@ -1161,10 +1185,12 @@ void GameLayer::cycleEvents()
 	CCObject *obj = NULL; 
 	int column;
 	float tileWidth = _tileMap->getTileSize().width * kPointFactor;
+
+	//遍历未发生事件的集合，获取每个事件列的位置同时计算_eventCenter位置，判断哪个处于屏幕中心
 	CCARRAY_FOREACH(_battleEvents, obj)
 	{
 		event = (CCDictionary *)obj;
-		column = event->valueForKey("Column")->intValue();
+		column = event->valueForKey("Column")->intValue();//玩家走到该列后激活敌人
 		float maxCenterX = _tileMap->getMapSize().width * _tileMap->getTileSize().width * kPointFactor - CENTER.x;
 		float columnPosition = column * tileWidth - tileWidth/2;
 		_eventCenter = MAX(MIN(columnPosition, maxCenterX), CENTER.x);
@@ -1172,16 +1198,17 @@ void GameLayer::cycleEvents()
 		if (_hero->getPosition().x >= _eventCenter)  //玩家走过屏幕半场了，激活敌人
 		{
 			_currentEvent = event;
-			_eventState = kEventStateBattle;
+			_eventState = kEventStateBattle;//设置当前事件状态为战斗
 			//_battleEvents = CCArray::createWithArray((CCArray *)levelData->objectForKey("BattleEvents"));
-			CCArray *enemyData = CCArray::createWithArray((CCArray *)event->objectForKey("Enemies"));
+			CCArray *enemyData = CCArray::createWithArray((CCArray *)event->objectForKey("Enemies"));//获取敌人的数据（包含敌人的类型，位置，颜色）
 			_activeEnemies = enemyData->count();
-			this->spawnEnemies(enemyData, _eventCenter);
-			this->setViewpointCenter(ccp(_eventCenter, _hero->getPositionY()));
+			this->spawnEnemies(enemyData, _eventCenter);//创建敌人
+			this->setViewpointCenter(ccp(_eventCenter, _hero->getPositionY()));//设置视角
 			break;
 		}
 	}
 
+	//从未发生事件集合中移除掉
 	if (_eventState == kEventStateBattle)
 	{
 		_battleEvents->removeObject(_currentEvent);

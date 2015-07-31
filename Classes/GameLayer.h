@@ -45,7 +45,7 @@ public:
 	void initTestRobot(); //测试用
 
 	virtual void update(float dt);
-	void updateEvent();
+	void updateEvent();//检测事件
 	virtual void onExit();
 	void updatePositions(); 
 
@@ -88,7 +88,7 @@ public:
 	//加载某关关卡和小兵分布
 	void loadLevel(int level);
 
-	//产生小兵
+	//产生小兵（enemies：敌人数据，来自plist文件中，origin：战斗事件的中心点）
 	void spawnEnemies(cocos2d::CCArray *enemies, float origin);
 
 	void cycleEvents();
@@ -124,8 +124,8 @@ public:
 	HitEffect* getHitEffect();
 protected:
 	int _activeEnemies;     //当前活跃的敌人
-	float _viewPointOffset; //视野偏移
-	float _eventCenter;     //??
+	float _viewPointOffset; //用来调整视野偏移
+	float _eventCenter;     //
 
 	cocos2d::CCArray *_battleEvents;      //还没发生的事件集合
 	cocos2d::CCDictionary *_currentEvent; //当前发生的事件

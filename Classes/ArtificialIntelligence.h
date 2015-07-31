@@ -14,13 +14,13 @@ public:
 	static ArtificialIntelligence* aiWithControlledSprite(ActionSprite *controlledSprite, ActionSprite *targetSprite);
 	bool initWithControlledSprite(ActionSprite *controlledSprite, ActionSprite *targetSprite);
 
-	//根据权重作出决定
+	//根据权重作出决定，依次为攻击，空闲，追逐，移动
 	AIDecision decideWithAttackWeight(int attackWeight, int idleWeight, int chaseWeight, int moveWeight);
 
 	//让AI根据决定控制角色作出行为
 	void setDecision(AIDecision decision);
 
-	void update(float dt);
+	void update(float dt);//评估局面给予每个动作合适的权重
 protected:
 	WeightedDecision *_attackDecision;
 	WeightedDecision *_idleDecision;
@@ -31,6 +31,7 @@ protected:
 	ActionSprite *_controlledSprite; //被AI操纵的角色
 	ActionSprite *_targetSprite;     //AI想攻击的对象
 	AIDecision _decision;		    //当前AI作出的决定
+	//保存四个可用的决定的数组，这将使它以后很容易的遍历决策
 	cocos2d::CCArray *_availableDecisions;  //当前可用的决定数组
 private:
 };

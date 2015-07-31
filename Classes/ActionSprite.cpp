@@ -245,6 +245,8 @@ void ActionSprite::update(float dt)
 	}
 	else if (_actionState == kActionStateKnockedOut) //处于被击倒状态
 	{
+		//被击倒后，不应该马上待用恢复或者死亡，特别是还处于空中的时候
+
 		_desiredPosition = ccpAdd(_groundPosition, ccpMult(_velocity, dt));
 		//再模拟一遍跳跃过程
 		_jumpVelocity -= kGravity * dt;
@@ -352,7 +354,7 @@ void ActionSprite::setActionState(ActionState actionState)
 
 void ActionSprite::setContactPointsForAction(ActionState actionState)
 {
-
+	//基于状态重新安排检测圆，由子类实现
 }
 
 void ActionSprite::transformPoints()
@@ -404,10 +406,12 @@ void ActionSprite::knockoutWithDamage(float damage, cocos2d::CCPoint direction)
 		_hitPoints -= damage;
 		this->stopAllActions();
 		this->runAction(_knockedOutAction);
+
+		//被击倒的效果的效果不仅仅是向后退，还要伴随着腾空
 		//设置后倒的向上加速度
-		_jumpVelocity = kJumpForce / 2.0f;
-		_velocity = ccp(direction.x * _runSpeed, direction.y * _runSpeed);
-		this->flipSpriteForVelocity(ccp(-_velocity.x, -_velocity.y)); //设置角色朝向
+		_jumpVelocity = kJumpForce / 2.0f;//腾空
+		_velocity = ccp(direction.x * _runSpeed, direction.y * _runSpeed);//后退
+		this->flipSpriteForVelocity(ccp(-_velocity.x, -_velocity.y)); //设置角色朝向，处理起来后的朝向
 		//this->_actionState = kActionStateKnockedOut;
 		this->setActionState(kActionStateKnockedOut);
 	}
@@ -422,6 +426,7 @@ void ActionSprite::die()
 
 	_jumpVelocity = 0;
 	_hitPoints = 0.0f;
+	//通知委派挂了
 	_delegate->actionSpriteDidDie(this);
 	this->runAction(_dieAction);
 }
@@ -436,6 +441,7 @@ void ActionSprite::recover()
 		_jumpVelocity = 0;
 		_jumpHeight = 0;
 
+		//延时0.5m后调用getUp
 		CCSequence* seq = CCSequence::create(CCDelayTime::create(0.5f), CCCallFunc::create(this, callfunc_selector(ActionSprite::getUp)), NULL);
 		this->runAction(seq);
 	}

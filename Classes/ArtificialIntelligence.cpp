@@ -75,6 +75,7 @@ AIDecision ArtificialIntelligence::decideWithAttackWeight(int attackWeight, int 
 	WeightedDecision *weightedDecision;
 	CCObject *obj;
 	//循环迭代，把这些决定按weight值分段，检查最后choice到底落到了哪一个区段内
+	//当然也可以使用一种简单的办法就是使用if-else来判断，但不如这种方法巧妙
 	CCARRAY_FOREACH(_availableDecisions, obj)
 	{
 		weightedDecision = (WeightedDecision *)obj;
@@ -139,7 +140,7 @@ void ArtificialIntelligence::setDecision(AIDecision decision)
 			_targetSprite->_groundPosition.y);
 		//角色要移动的方向
 		CCPoint moveDirection = ccpNormalize(ccpSub(reachPosition, _controlledSprite->_groundPosition));
-
+		CCLOG("LLL---%d---%d",moveDirection.x,moveDirection.y);
 		//移动角色
 		_controlledSprite->walkWithDirection(moveDirection);
 
@@ -172,7 +173,7 @@ void ArtificialIntelligence::update(float dt)
 		//1 判断距离
 		float distanceSQ = ccpDistanceSQ(_controlledSprite->_groundPosition, _targetSprite->_groundPosition);
 		float planeDist = fabsf(_controlledSprite->getShadow()->getPositionY() -
-			_targetSprite->getShadow()->getPositionY()); //平面距离
+			_targetSprite->getShadow()->getPositionY()); //y方向上的平面距离差值
 		float combinedRadius = _controlledSprite->_detectionRadius + _targetSprite->_detectionRadius;
 
 		bool samePlane = false;
@@ -180,7 +181,7 @@ void ArtificialIntelligence::update(float dt)
 		bool tooFar = true;
 		bool canMove = false;
 
-		//2
+		//2 这两种状态时意味着被控制的对象可以移动了
 		if (_controlledSprite->_actionState == kActionStateWalk ||
 			_controlledSprite->_actionState == kActionStateIdle)
 		{
@@ -199,6 +200,7 @@ void ArtificialIntelligence::update(float dt)
 				{
 					samePlane = true;
 					//check if any attack points can reach the target's contact points
+					//下面是检测控制对象的攻击圆是否碰到了目标对象的接触圆（这是一种类似碰撞检测的预测方法）
 					int attackPointCount = _controlledSprite->_attackPointCount;
 					int contactPointCount = _targetSprite->_contactPointCount;
 
@@ -228,7 +230,7 @@ void ArtificialIntelligence::update(float dt)
 				}
 			}//measure distances
 
-			// 4
+			// 4 如果控制对象正在向目标移动且canReach为true（可到达），那么将停下
 			if (canReach && _decision == kDecisionChase)
 			{
 				this->_decision = kDecisionStayPut;
@@ -242,7 +244,7 @@ void ArtificialIntelligence::update(float dt)
 			else //到了决定时间
 			{
 				// 6
-				if (tooFar) //离的太远, 主要是追踪目标
+				if (tooFar) //离的太远, 会在空闲和追踪中选择，主要是追踪目标
 				{
 					this->_decision = this->decideWithAttackWeight(0, 20, 80, 0);
 				}
