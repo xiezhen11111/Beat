@@ -1225,7 +1225,7 @@ void GameLayer::onEnterTransitionDidFinish()
 	_eventState = kEventStateScripted;
 	_hero->enterFrom(_hero->getPosition(), ccp(64.f, _hero->getPositionY()));
 
-	//开启定时器，延时2s执行，执行1次
+	//开启定时器，延时2s执行，执行1次，执行triggerEvent方法切换状态为kEventStateFreeWalk
 	//this->schedule(schedule_selector(GameLayer::triggerEvent),0, 1, 2);
 	CCSequence* seq = CCSequence::create(CCDelayTime::create(2.2f), CCCallFuncND::create(this, callfuncND_selector(GameLayer::triggerEvent),(void*)kEventStateFreeWalk), NULL);
 	this->runAction(seq);

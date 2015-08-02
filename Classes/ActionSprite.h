@@ -82,7 +82,7 @@ public:
 	std::vector<ContactPoint> _contactPoints; //挨打的碰撞检测圆数组
 	std::vector<ContactPoint> _attackPoints;  //攻击的碰撞检测圆   
 	int _contactPointCount;  //碰撞检测圆数目
-	int _attackPointCount;
+	int _attackPointCount;	 //攻击检测圆数目
 	float _detectionRadius;  //侦测半径，精灵过了此半径才开始碰撞检测
 	//cocos2d::CCRect feetCollisionRect;
 
