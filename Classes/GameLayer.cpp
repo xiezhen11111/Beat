@@ -311,7 +311,7 @@ void GameLayer::didChangeDirectionTo(ActionDPad *actionDPad, ActionDPadDirection
 		{
 			_hero->walkWithDirection(directionVector);
 			_previousDirection = direction;
-			_runDelay = 0.2f;
+			_runDelay = 2000;//0.2f;
 		}
 	}
 	
