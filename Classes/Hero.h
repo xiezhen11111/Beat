@@ -62,9 +62,11 @@ public:
 protected:
 	void setLandingDisplayFrame();
 private:
-	float _hurtToLerance;
-	float _recoveryRate;
-	float _hurtLimit;
+	/*当英雄不断的受击时他无法逃脱（一大群敌人在身边攻击的时候），当现实受击动画的时候，他不能移动和攻击但是可以继续的受击，这样显的无法继续了.
+	解决方法是计算受击的数量让他倒下，当他连续十次被打的时候，让他倒下（倒下后不会接受受击了），这样给他时间去恢复*/
+	float _hurtToLerance;//当被击中的时候，该值会减少，当为0时，英雄被击倒
+	float _recoveryRate;//英雄恢复他的hurtTolerance的频率
+	float _hurtLimit;//hurtTolerance的最大值
 
 	float _attackTwoDelayTime;
 	float _attackThreeDelayTime;

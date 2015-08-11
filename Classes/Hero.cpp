@@ -312,9 +312,11 @@ void Hero::hurtWithDamage(float damage, float force, cocos2d::CCPoint direction)
 	
 	if (this->_actionState == kActionStateHurt)
 	{
+		
 		_hurtToLerance -= damage;
 		if (_hurtToLerance <= 0)
 		{
+			//被击倒了
 			this->knockoutWithDamage(0, direction);
 		}
 	}
@@ -352,6 +354,7 @@ void Hero::update(float dt)
 
 	if (_hurtToLerance <_hurtLimit)
 	{
+		//理论上这里执行无此，这样的话只有连续多次的击中英雄才会被击倒
 		_hurtToLerance += _hurtLimit * dt / _recoveryRate;
 		if(_hurtToLerance >= _hurtLimit)
 			_hurtToLerance = _hurtLimit;
