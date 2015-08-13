@@ -270,6 +270,7 @@ void ActionSprite::update(float dt)
 	}
 
 	//CCLog("_actionDelay:%f", _actionDelay);
+	//周期函数中更新_actionDelay的值
 	if (_actionDelay > 0)
 	{
 		_actionDelay -= dt;
@@ -289,6 +290,7 @@ void ActionSprite::attack()
 	if (_actionState == kActionStateIdle || _actionState == kActionStateWalk ||
 		(_actionState == kActionStateAttack && _actionDelay<=0))
 	{
+		//检测对象的状态并且_actionDelay小于等于0（等待时间结束，可以攻击了）
 		//CCLog("_actionState: %d", _actionState);
 		//CCLog("attack");
 		this->stopAllActions();

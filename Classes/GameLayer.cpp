@@ -758,6 +758,9 @@ bool GameLayer::actionSpriteDidAttack(ActionSprite *actionSprite)
 					
 					//攻击到敌人，飘出伤害字
 					DamageNumber* damageNumber = this->getDamageNumber();
+
+					//注意hurtWithDamage是重载函数，可以设置受击的敌人是会后退还是被打到在地
+
 					if (_hero->_actionState == kActionStateJumpAttack) //跳跃攻击
 					{
 						SimpleAudioEngine::sharedEngine()->playEffect(EFFECT_HIT1_WAV); //播放打击音效
@@ -781,6 +784,7 @@ bool GameLayer::actionSpriteDidAttack(ActionSprite *actionSprite)
 					}
 					else if(_hero->_actionState == kActionStateAttackTwo)
 					{
+						//与第一次受击表现相同
 						SimpleAudioEngine::sharedEngine()->playEffect(EFFECT_HIT0_WAV);
 						robot->hurtWithDamage(_hero->_attackTwoDamage, _hero->getAttackForce(),ccp(_hero->_directionX, 0));
 						damageNumber->showWithValue(_hero->_attackTwoDamage,COLOR_MIDHP, robot->getPosition());

@@ -155,9 +155,16 @@ bool Hero::init()
 		CCSequence* seqAtkThree = CCSequence::create(_attackThreeGroup, CCCallFunc::create(this, callfunc_selector(Hero::idle)), NULL);
 		this->setAttackThreeAction(seqAtkThree);
 
+		//连击的相关设置
+		
+		//1.设置了二，三连击的攻击等到时间
 		_attackTwoDelayTime = kOneAtkTime;
 		_attackThreeDelayTime = 0.45f;
+		
+		//2.连击的间隔时间，该时间内再次攻击的话会触发连击
 		_chainTimer = 0;
+
+		//3.二三连击的攻击力
 		this->_attackTwoDamage = 10.f;
 		this->_attackThreeDamage = 20.f;
 
@@ -262,13 +269,13 @@ void Hero::setDisplayFrame(cocos2d::CCSpriteFrame *pNewFrame)
 {
 	CCSprite::setDisplayFrame(pNewFrame);
 
-	//检测当前播放的是不是攻击帧
+	//检测当前播放的是不是攻击帧，以下是攻击动作的中真正的攻击帧
 	CCSpriteFrame *attackFrame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("hero_attack_00_01.png");
 	CCSpriteFrame *runAttackFrame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("hero_runattack_02.png");
 	CCSpriteFrame *runAttackFrame2 = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("hero_runattack_03.png");
 	CCSpriteFrame *jumpAttackFrame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("hero_jumpattack_02.png");
 
-	//new frames
+	//new frames 连击的攻击帧
 	CCSpriteFrame *attackFrame2 = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("hero_attack_01_01.png");
 	CCSpriteFrame *attackFrame3 = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("hero_attack_02_02.png");
 
@@ -276,6 +283,7 @@ void Hero::setDisplayFrame(cocos2d::CCSpriteFrame *pNewFrame)
 	{
 		if(this->_delegate->actionSpriteDidAttack(this)) //返回true表示角色攻击到机器人了
 		{
+			//攻击到了，设置连击的触发时间
 			_chainTimer = 0.3f;   //如果是第一击或第二击，要重设下下一击有效时间
 
 			if (_weapon)
@@ -343,6 +351,7 @@ void Hero::update(float dt)
 {
 	ActionSprite::update(dt);
 
+	//连击的有效时间更新（在大于0时间内会触发连击，否则视为普通攻击）
 	if (_chainTimer > 0)
 	{
 		_chainTimer -= dt;
@@ -367,23 +376,34 @@ void Hero::update(float dt)
 
 void Hero::attack()
 {
+
+	/*
+	连击检测原理：连击的时间间隔为0.3s，当敌人第一次被攻击的时候，会设置下一个连击的间隔为0.3s，如果下一个攻击在0.3s内发生了就会触发二次连击，否则视为普通的连击，
+	同理第三击也是这样，如果形成三连击将获得更大的攻击力（需要注意的是_actionDelay（攻击的等待时间）的值要小于_chainTimer，否则按了也无效）
+	*/
+
+	//根据当前的攻击状态及是否在连击的有效时间攻击，来判断是否触发连击及连击的阶段
+
+	//判断当前的攻击状态，处于连击中第几个，_chainTimer是连击的有效时间，过了就不会触发
 	if (this->_actionState == kActionStateAttack && _chainTimer>0)
 	{
-		_chainTimer = 0;
+		//触发第二次连击
+		_chainTimer = 0;//会在setDisplayFrame中检测到后设置其值（0.3）
 		this->stopAllActions();
 		this->runAction(_attackTwoAction);
 		this->setActionState(kActionStateAttackTwo);
-		_actionDelay = _attackTwoDelayTime;
+		_actionDelay = _attackTwoDelayTime;//更新攻击的等待时间（不是0的时候，攻击无效）
 	}
 	else if (this->_actionState == kActionStateAttackTwo && _chainTimer>0)
 	{
+		//触发第三次连击
 		_chainTimer = 0;
 		this->stopAllActions();
 		this->runAction(_attackThreeAction);
 		this->setActionState(kActionStateAttackThree);
 		_actionDelay = _attackThreeDelayTime;
 	}
-	else
+	else//否则，正常的攻击
 		ActionSprite::attack();
 }
 

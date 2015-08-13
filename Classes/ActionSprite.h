@@ -21,7 +21,7 @@ public:
 	~ActionSprite();
 
 	bool _didJumpAttack;   //是否跳跃攻击过了
-	float _actionDelay;
+	float _actionDelay;//攻击的等待时间，当小于等于0时才可以攻击（这是合理的不然的话，不断的按下攻击键的话都需要播放攻击动画会很怪）
 	float _attackDelayTime;
 	float _directionX;  //角色朝向 1.0f 面向右 -1.0f 面向左
 	bool _isInvincible; //是否无敌
