@@ -1,6 +1,11 @@
 #include "Weapon.h"
 #include "cocos2d.h"
 
+/**
+ * 
+ * ½ğÊôÊÖÌ×ÎäÆ÷
+ * 
+*/	
 class Gauntlets : public Weapon
 {
 public:

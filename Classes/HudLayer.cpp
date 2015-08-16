@@ -96,6 +96,7 @@ void HudLayer::setHitPoints(float newHP, float maxHP)
 
 	_hitPointsLabel->setString(CCString::createWithFormat("%d", wholeHP)->getCString());
 
+	//根据血量的剩余数设置不同的颜色值
 	float ratio = newHP / maxHP;
 	if (ratio>0.6)
 	{

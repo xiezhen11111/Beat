@@ -42,6 +42,8 @@ bool Gauntlets::init()
 		this->_idle = this->animationMemberWithPrefix("weapon_idle", 0, 6, 1.f/12.f, this);
 		this->_walk = this->animationMemberWithPrefix("weapon_walk", 0, 8, 1.f/12.f, this);
 
+
+		//ÎäÆ÷µôÂäµÄ¶¯»­
 		CCSpriteFrame *dropFrame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName("weapon_unequipped.png");
 		CCArray* dropFrames = CCArray::createWithCapacity(2);
 		dropFrames->addObject(dropFrame);
@@ -49,6 +51,7 @@ bool Gauntlets::init()
 		CCAnimation *dropAnimation = CCAnimation::createWithSpriteFrames(dropFrames, 1.f/12.f);
 		CCAnimate* amte = CCAnimate::create(dropAnimation);
 		this->setDroppedAction(amte);
+
 		this->setDestroyedAction(CCSequence::create(CCBlink::create(2.f, 5), CCCallFunc::create(this, callfunc_selector(Gauntlets::reset)), NULL));
 		this->_damageBonus = 20.f;
 		this->_centerToBottom = 5.f * kPointFactor;

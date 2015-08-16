@@ -133,7 +133,7 @@ void Boss::hurtWithDamage(float damage, float force, cocos2d::CCPoint direction)
 	{
 		float ratio = this->_hitPoints / this->_maxHitPoints;
 
-		if (ratio <= 0.7f)
+		if (ratio <= 0.1f)
 		{
 			this->stopAllActions();
 			this->runAction(this->getHurtAction());

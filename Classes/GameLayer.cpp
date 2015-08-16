@@ -377,11 +377,11 @@ void GameLayer::actionButtonWasPressed(ActionButton* actionButton)
 				CCARRAY_FOREACH(_weapons, objWea)
 				{
 					weapon = (Weapon *)objWea;
-					if (weapon->_weaponState == kWeaponStateUnequipped)
+					if (weapon->_weaponState == kWeaponStateUnequipped)//武器要是卸下的
 					{
-						if (this->collisionBetweenPlayer(_hero, weapon))
+						if (this->collisionBetweenPlayer(_hero, weapon))//碰撞到了
 						{
-							pickedUpWeapon = _hero->pickUpWeapon(weapon);
+							pickedUpWeapon = _hero->pickUpWeapon(weapon);//拾取
 							_actors->reorderChild(weapon, _hero->getZOrder()+1);
 							//int orderW = weapon->getZOrder();
 							//int orderH = _hero->getZOrder();
@@ -390,6 +390,8 @@ void GameLayer::actionButtonWasPressed(ActionButton* actionButton)
 					}
 				}
 			}
+
+			//没有拾取武器，则攻击
 			if(!pickedUpWeapon)
 				_hero->attack();
 		}
@@ -397,6 +399,7 @@ void GameLayer::actionButtonWasPressed(ActionButton* actionButton)
 		{
 			if (_hero->_weapon)
 			{
+				//卸下武器
 				_hero->dropWeapon();
 			}
 			else
@@ -894,7 +897,7 @@ bool GameLayer::actionSpriteDidAttack(ActionSprite *actionSprite)
 			{
 				SimpleAudioEngine::sharedEngine()->playEffect(EFFECT_HIT1_WAV);
 				_hero->knockoutWithDamage(_boss->getAttackDamage(), ccp(actionSprite->_directionX, 0.f));
-				_hud->setHitPoints(_hero->getHitPoints(), _hero->getMaxHitPoints());
+				_hud->setHitPoints(_hero->getHitPoints(), _hero->getMaxHitPoints());//设置血量
 				didHit = true;
 
 				DamageNumber *damageNumber = this->getDamageNumber();
@@ -1071,6 +1074,7 @@ void GameLayer::loadLevel(int level)
 	_totalLevel = levelArray->count();
 	_currentLevel = level;
 
+	//处理boss
 	int boss = levelData->valueForKey("BossType")->intValue();
 	this->initBossWithType(BossType(boss));
 }

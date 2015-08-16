@@ -15,6 +15,11 @@ public:
 	virtual void weaponDidReachLimit(Weapon* weapon) = 0;
 };
 
+/**
+ * 
+ * 武器父类
+ * 
+*/	
 class Weapon : public cocos2d::CCSprite
 {
 public:
@@ -25,6 +30,8 @@ public:
 	//CREATE_FUNC(Weapon);
 
 	CC_SYNTHESIZE(WeaponDelegate*, _delegate, Delegate);
+
+	//动画部分有子类实现（每个武器都是不同的，所以应该要子类来实现）
 	CCSprite* _shadow;
 	AnimationMember* _attack;
 	AnimationMember* _attackTwo;
@@ -33,6 +40,7 @@ public:
 	AnimationMember* _walk;
 	CC_SYNTHESIZE_RETAIN(cocos2d::CCAction*, _droppedAction, DroppedAction);
 	CC_SYNTHESIZE_RETAIN(cocos2d::CCAction*, _destroyedAction, DestroyedAction);
+
 	float _damageBonus;
 	int _limit;
 	float _jumpVelocity;
@@ -51,7 +59,7 @@ public:
 	void reset();
 	void setVisible(bool visible);
 	void setGroundPosition(cocos2d::CCPoint groundPosition);
-	void droppedFrom(float height, cocos2d::CCPoint destination);
+	void droppedFrom(float height, cocos2d::CCPoint destination);//武器掉落，具体的位置计算参见295
 
 	void cleanup();
 

@@ -453,14 +453,19 @@ void Hero::setWeapon(CCNode *pSender, void* data)
 {
 	Weapon* weapon = (Weapon *)data;
 	this->stopAllActions();
+	//1.删除之前的武器
 	if(_weapon)
 		this->removeAllAnimationMembers();
 
 	_weapon = weapon;
+
+	//2.
 	if (_weapon)
 	{
-		_weapon->setDelegate(this);
-		_weapon->setScaleX(this->getScaleX());
+		_weapon->setDelegate(this);//设置代理
+		_weapon->setScaleX(this->getScaleX());//设置方向，保证与英雄相同
+
+		//将武器的动画添加都英雄相应的动作中
 		_attackGroup->_members->addObject(_weapon->_attack);
 		_attackTwoGroup->_members->addObject(_weapon->_attackTwo);
 		_attackThreeGroup->_members->addObject(_weapon->_attackThree);
@@ -468,6 +473,7 @@ void Hero::setWeapon(CCNode *pSender, void* data)
 		_walkGroup->_members->addObject(_weapon->_walk);
 	}
 
+	//3.恢复站立
 	this->runAction(this->getIdleAction());
 	this->_velocity = CCPointZero;
 	this->setActionState(kActionStateIdle);
@@ -489,6 +495,7 @@ void Hero::dropWeapon()
 		_weapon->setDelegate(NULL);
 	}
 	this->_weapon = NULL;
+	//传入掉落的高度及最终的位置（详细计算参见295）
 	weapon->droppedFrom(this->_groundPosition.y-this->_shadow->getPositionY(), this->_shadow->getPosition());
 }
 

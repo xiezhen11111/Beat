@@ -34,7 +34,7 @@ public:
 	void setHitPoints(float newHP, float maxHP); //显示主角血量
 	void showGoMessage();
 	void displayLevel(int level);		//显示当前关卡数
-	void showMessage(const char* message, cocos2d::ccColor3B color); //显示信息用
+	void showMessage(const char* message, cocos2d::ccColor3B color); //显示信息用,当英雄的eventState变为kEventStateFreeWalk时调用
 
 protected:
 	//ActionDPad *_dPad; //键位按钮

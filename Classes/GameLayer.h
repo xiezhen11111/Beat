@@ -120,6 +120,7 @@ public:
 	void exitLevel();
 
 	void setEventState(EventState eventState);
+
 	DamageNumber* getDamageNumber();
 	HitEffect* getHitEffect();
 protected:

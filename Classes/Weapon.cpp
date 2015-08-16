@@ -83,7 +83,7 @@ void Weapon::pickedUp()
 
 void Weapon::droppedFrom(float height, CCPoint destination)
 {
-	_jumpVelocity = kJumpCutoff;
+	_jumpVelocity = kJumpCutoff;//这个值会让武器在掉落的时候先上去一段距离
 	_jumpHeight = height;
 	this->setGroundPosition(destination);
 	this->_weaponState = kWeaponStateUnequipped;

@@ -32,7 +32,7 @@ bool DamageNumber::initWithString(const char *str, const char *fntFile)
 	
 	if(bRet == false)
 		return bRet;
-	//出现，向上漂字，消失
+	//设置一个action：出现，向上漂字，消失
 	CCSequence *seq = CCSequence::create(CCShow::create(), CCMoveBy::create(0.6f, ccp(0.f, 40.f*kPointFactor)),
 		CCHide::create(),NULL);
 	this->setDamageAction(seq);

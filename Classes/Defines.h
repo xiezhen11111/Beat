@@ -51,6 +51,7 @@ static float realRand_0_1()
 #define frandom_range(low, high) (((high - low) * realRand_0_1()) + low)
 #define random_sign (rand() % 2 ? 1 : -1) 
 
+//英雄生命值在不同阶段显示的颜色
 #define COLOR_FULLHP ccc3(95,  255, 106)
 #define COLOR_MIDHP ccc3(255, 165, 0)
 #define COLOR_LOWHP ccc3(255, 50, 23)
