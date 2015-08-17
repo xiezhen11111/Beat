@@ -59,7 +59,7 @@ bool Hero::init()
 		//int i;
 		//创建精灵idle动画
 		/*CCArray *idleFrames = CCArray::createWithCapacity(6);
-		for (i=0; i<6; i++)
+		for (i=0; i<6; i++)setPosition:
 		{
 			CCString* strName = CCString::createWithFormat("hero_idle_%02d.png",i);
 			CCSpriteFrame *frame = CCSpriteFrameCache::sharedSpriteFrameCache()->spriteFrameByName(strName->getCString());
@@ -286,8 +286,10 @@ void Hero::setDisplayFrame(cocos2d::CCSpriteFrame *pNewFrame)
 			//攻击到了，设置连击的触发时间
 			_chainTimer = 0.3f;   //如果是第一击或第二击，要重设下下一击有效时间
 
+			
 			if (_weapon)
 			{
+				//使用了武器，减少使用的次数（为0时武器会被销毁）
 				_weapon->used();
 			}
 		}
@@ -312,6 +314,7 @@ void Hero::setDisplayFrame(cocos2d::CCSpriteFrame *pNewFrame)
 
 void Hero::hurtWithDamage(float damage, float force, cocos2d::CCPoint direction)
 {
+	//武器掉落，也是因为没有相应的动画
 	if (_weapon)
 	{
 		this->dropWeapon();

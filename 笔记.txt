@@ -1,11 +1,48 @@
-hysicsEditor 是一款很好的box2d 形状生成工具，通过图形界面，点点鼠标，生成形状的plist文件，然后使用他的api生成fixtures加到需要的body中去
+physicsEditor 是一款很好的box2d 形状生成工具，通过图形界面，点点鼠标，生成形状的plist文件，然后使用他的api生成fixtures加到需要的body中去
 为机器人加入人工智能，加入战斗事件（分批的加入敌人（添加了战斗时的英雄移动限制打完这波才可以继续移动及镜头的效果）），使用scripted events事件做一个类似开场动画的效果即英雄不受控制的走向了设置的位置
 
 To finish adding support for the boss in to the game, you still need to do the
 following:
 1. Spawn the boss enemy in spawnEnemies:.
+在spawnEnemies中创建
 2. Update the boss logic in update:.
+在update中更新逻辑
 3. Update the boss’s position in updatePositions.
+在updatePositions中更新位置
 4. Dynamically change the z-order of the boss in reorderActors.
+在reorderActors中实时的更新z轴的层级
 5. Implement collision handling in actionSpriteDidAttack:.
+在actionSpriteDidAttack中实现碰撞处理
 6. Give the boss some brains in initBrains.
+在initBrains中添加人工智能
+
+
+敌人（机器人，boss）的整体流程：
+1.配置（位置，颜色等信息）：存储在Levels.plist文件中
+2.设置流程
+	a.在spawnEnemies中创建
+	b.在update中更新逻辑
+	c.在updatePositions中更新位置（内部要进行位置的判定和计算）
+	d.在reorderActors中实时的更新z轴的层级
+	e.在actionSpriteDidAttack中实现碰撞处理
+	f.在initBrains中添加人工智能
+
+
+要点：
+1.碰撞策略（攻击，受击的检测方案）
+2.动画系统（敌人，英雄（添加了武器））
+3.AI（敌人的人工智能）
+4.场景的镜头
+	a.跟随人物
+	b.限制必须打完所有敌人才可以继续的镜头限制
+
+5.受力的运动
+a.受击后退
+b.被击倒
+c.被击倒后恢复过来（英雄）
+d.武器掉落
+
+
+6.人物的移动（与摇杆的结合）
+
+

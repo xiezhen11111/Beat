@@ -22,7 +22,7 @@ public:
 	void knockoutWithDamage(float damage, cocos2d::CCPoint direction);
 	void getUp();
 
-	//重载这三个函数是为了让武器也保持与英雄同步
+	//重载这四个函数是为了让武器也保持与英雄同步
 	void setPosition(const cocos2d::CCPoint& pos);
 	void setScaleY(float fScaleY);
 	void setScaleX(float fScaleX);

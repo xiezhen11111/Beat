@@ -296,7 +296,7 @@ void GameLayer::didChangeDirectionTo(ActionDPad *actionDPad, ActionDPadDirection
 
 		CCPoint directionVector = this->vectorForDirection(direction); //将方向改成向量
 		_hero->flipSpriteForVelocity(directionVector); //角色设定转向
-		//要是双击方向时间满足且方向没改变且没有武器且方向是正右或正左(这个条件其实可以去掉),执行跑步动作
+		//要是双击方向时间满足且方向没改变且没有武器且方向是正右或正左(这个条件其实可以去掉),执行跑步动作（只所以需要判断是否持有武器是因为武器没有相应跑的动画）
 		if (!_hero->_weapon && _runDelay >0 && _previousDirection == direction && 
 			(direction == kActionDPadDirectionRight || direction == kActionDPadDirectionLeft))
 		{
@@ -624,7 +624,8 @@ void GameLayer::reorderActors()
 	//更新英雄的zorder
 	_actors->reorderChild(_hero->getShadow(), spriteZ);
 	_actors->reorderChild(_hero, spriteZ);
-	if(_hero->_weapon) //有武器时刻让它处于上层
+
+	if(_hero->_weapon) //有武器时刻让它处于上层，否则移动底部时会出现错误
 		_actors->reorderChild(_hero->_weapon, _hero->getZOrder()+1);
 
 	
