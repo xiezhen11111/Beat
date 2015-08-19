@@ -1335,24 +1335,27 @@ void GameLayer::initMapObjects()
 	CCObject *obj = NULL;
 	CCString* type;
 	CCPoint position, coord, origin;
-	//遍历对象层所有物体，如果有物体Type属性为"TrashCan"的,设置位置等属性
+	//遍历对象层所有物体，如果有物体Type属性为"TrashCan"的（垃圾桶）,设置位置等属性
 	CCARRAY_FOREACH(objectGroup->getObjects(), obj)
 	{
 		object = (CCDictionary *)obj;
 		type = CCString::create(object->valueForKey("Type")->getCString());
 		if (type && type->compare("TrashCan")==0)
 		{
+			//下面进行了两个方法的转换，将瓦片地图中的坐标转换为cocos2dx中的坐标
 			position = ccp(object->valueForKey("x")->floatValue(), object->valueForKey("y")->floatValue());
 			coord = this->tileCoordForPosition(position);
 			//获取垃圾箱的原点位置
 			origin = this->tilePositionForCoord(coord, ccp(0.f, 0.f));
 
+			//创建垃圾桶，设置其坐标
 			TrashCan *trashCan = TrashCan::create();
 			trashCan->setScale(trashCan->getScale()*kScaleFactor);
 			CCSize scaleSize = CCSizeMake(trashCan->getContentSize().width*kScaleFactor, trashCan->getContentSize().height*kScaleFactor);
 			CCPoint actualOrigin = ccpMult(origin, kPointFactor);
 			trashCan->setPosition(ccp(actualOrigin.x+scaleSize.width*trashCan->getAnchorPoint().x,
 				actualOrigin.y+scaleSize.height*trashCan->getAnchorPoint().y));
+
 			_actors->addChild(trashCan);
 			_mapObjects->addObject(trashCan);
 		}
@@ -1364,9 +1367,10 @@ void GameLayer::initMapObjects()
 
 cocos2d::CCPoint GameLayer::tileCoordForPosition(cocos2d::CCPoint position)
 {
+	//将对象处于瓦片地图中的坐标转换成地图块的坐标（所处的行列坐标）
 	float tileWidth = _tileMap->getTileSize().width;
 	float tileHeight = _tileMap->getTileSize().height;
-	float levelHeight = _tileMap->getMapSize().height * tileHeight;
+	float levelHeight = _tileMap->getMapSize().height * tileHeight;//地图高度
 
 	float x = floor(position.x / tileWidth);
 	float y = floor((levelHeight - position.y)/tileHeight);
@@ -1375,6 +1379,7 @@ cocos2d::CCPoint GameLayer::tileCoordForPosition(cocos2d::CCPoint position)
 
 CCPoint GameLayer::tilePositionForCoord(cocos2d::CCPoint coord, CCPoint anchorPoint)
 {
+	//由于坐标系的不同，所以需要将瓦片地图中的坐标值（原点在左上角）转换为在cocos2dx中的坐标值（远点在左下角）
 	float w = _tileMap->getTileSize().width;
 	float h = _tileMap->getTileSize().height;
 	CCPoint pos = ccp((coord.x*w)+(w*anchorPoint.x),
