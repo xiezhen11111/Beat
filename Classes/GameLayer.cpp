@@ -649,10 +649,13 @@ void GameLayer::reorderActors()
 		_actors->reorderChild(_boss, spriteZ);
 	}
 	
+	//地图中物体的Z轴排序
 	MapObject *objMap = NULL;
 	CCObject *objM = NULL;
 	CCARRAY_FOREACH(_mapObjects, objM)
 	{
+		/*这里主要是针对垃圾箱，由于垃圾箱存在立体感所有不能单纯以某点做为Z轴索引值，否则会出现显示层级的错误，可以使用两个点分别区分从左右两侧走过来时
+		箱子的显示层级，这里采用的解决方案是使用一个点介于左右两点间的（322）*/
 		objMap = (MapObject *)objM;
 		spriteZ = this->getZFromYPosition(objMap->collisionRect().origin.y + objMap->collisionRect().size.height/2 );
 		_actors->reorderChild(objMap, spriteZ);
@@ -1389,6 +1392,8 @@ CCPoint GameLayer::tilePositionForCoord(cocos2d::CCPoint coord, CCPoint anchorPo
 
 void GameLayer::objectCollisionsForSprite(ActionSprite *sprite)
 {
+	//检测与地图中物体的碰撞并修复位置
+
 	MapObject *mapObject = NULL;
 	CCObject *obj = NULL;
 	CCRect spriteRect;
